@@ -50,7 +50,7 @@ pub enum IcoEvent {
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]
 pub struct IcoInit {
-    pub token_id: ActorId,
+    pub token_address: ActorId,
     pub owner: ActorId,
 }
 

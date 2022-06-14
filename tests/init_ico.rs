@@ -8,7 +8,7 @@ use ico_io::*;
 
 use gstd::ActorId;
 
-pub const TOKEN_ID: u64 = 1;
+pub const TOKEN_ADDRESS: u64 = 1;
 // pub const ICO_CONTRACT_ID: u64 = 2;
 pub const OWNER_ID: u64 = 100001;
 pub const USER_ID: u64 = 12345;
@@ -47,7 +47,7 @@ fn init_ico(sys: &System) {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: OWNER_ID.into(),
         },
     );

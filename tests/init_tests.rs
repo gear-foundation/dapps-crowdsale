@@ -25,7 +25,7 @@ fn zero_owner_id_init() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: ZERO_ID,
         },
     );
@@ -35,7 +35,7 @@ fn zero_owner_id_init() {
 
 #[test]
 #[should_panic]
-fn zero_token_id_init() {
+fn zero_token_address_init() {
     let sys = System::new();
     sys.init_logger();
 
@@ -44,7 +44,7 @@ fn zero_token_id_init() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: ZERO_ID,
+            token_address: ZERO_ID,
             owner: OWNER_ID.into(),
         },
     );
@@ -87,7 +87,7 @@ fn zero_tokens_goal_init() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: OWNER_ID.into(),
         },
     );
@@ -130,7 +130,7 @@ fn zero_start_price_init() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: OWNER_ID.into(),
         },
     );
@@ -173,7 +173,7 @@ fn zero_price_increase_init() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: OWNER_ID.into(),
         },
     );
@@ -216,7 +216,7 @@ fn zero_time_increase_init() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: OWNER_ID.into(),
         },
     );

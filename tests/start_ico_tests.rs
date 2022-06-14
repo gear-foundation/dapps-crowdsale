@@ -100,7 +100,7 @@ fn not_minting_tokens() {
     let res = ico.send(
         OWNER_ID,
         IcoInit {
-            token_id: TOKEN_ID.into(),
+            token_address: TOKEN_ADDRESS.into(),
             owner: OWNER_ID.into(),
         },
     );

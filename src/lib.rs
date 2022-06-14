@@ -4,7 +4,6 @@ pub mod messages;
 pub use messages::*;
 
 pub mod asserts;
-pub use asserts::*;
 
 use ico_io::*;
 
@@ -19,7 +18,7 @@ struct IcoContract {
     tokens_sold: u128,
     tokens_goal: u128,
     owner: ActorId,
-    token_id: ActorId,
+    token_address: ActorId,
     token_holders: BTreeMap<ActorId, u128>,
 }
 
@@ -39,7 +38,7 @@ impl IcoContract {
     ///
     async fn start_ico(&mut self, config: IcoAction) {
         check_input(&config);
-        assert_owner_message(&self.owner, "start_ico(): Not owner start ICO");
+        asserts::owner_message(&self.owner, "start_ico(): Not owner start ICO");
         assert!(!self.ico_state.ico_started, "start_ico(): Second ICO start");
 
         if let IcoAction::StartSale {
@@ -56,7 +55,7 @@ impl IcoContract {
             self.time_increase_step = time_increase_step;
 
             transfer_tokens(
-                &self.token_id,
+                &self.token_address,
                 &self.owner,
                 &exec::program_id(),
                 self.tokens_goal,
@@ -162,7 +161,7 @@ impl IcoContract {
     async fn end_sale(&mut self) {
         let time_now: u64 = exec::block_timestamp();
 
-        assert_owner_message(&self.owner, "end_sale()");
+        asserts::owner_message(&self.owner, "end_sale()");
         self.in_process("end_sale()");
 
         if self.ico_state.start_time + self.ico_state.duration >= time_now
@@ -176,13 +175,13 @@ impl IcoContract {
         }
 
         for (id, val) in &self.token_holders {
-            transfer_tokens(&self.token_id, &exec::program_id(), id, *val).await;
+            transfer_tokens(&self.token_address, &exec::program_id(), id, *val).await;
         }
 
         let rest_balance = self.get_balance();
         if rest_balance > 0 {
             transfer_tokens(
-                &self.token_id,
+                &self.token_address,
                 &exec::program_id(),
                 &self.owner,
                 rest_balance,
@@ -221,17 +220,15 @@ impl IcoContract {
 
 #[gstd::async_main]
 async unsafe fn main() {
-    assert_not_zero_address(&msg::source(), "Main message source");
-
     let action: IcoAction = msg::load().expect("Unable to decode SaleAction");
-    let ico: &mut IcoContract = unsafe { ICO_CONTRACT.get_or_insert(IcoContract::default()) };
+    let ico: &mut IcoContract = unsafe { ICO_CONTRACT.get_or_insert(Default::default()) };
 
     match action {
         IcoAction::StartSale { .. } => ico.start_ico(action).await,
         IcoAction::Buy(value) => ico.buy_tokens(value),
         IcoAction::EndSale => ico.end_sale().await,
         IcoAction::BalanceOf(address) => {
-            assert_owner_message(&ico.owner, "BalanceOf()");
+            asserts::owner_message(&ico.owner, "BalanceOf()");
 
             if let Some(val) = ico.token_holders.get(&address) {
                 msg::reply(
@@ -285,13 +282,13 @@ fn check_input(config: &IcoAction) {
 pub unsafe extern "C" fn init() {
     let config: IcoInit = msg::load().expect("Unable to decode ICOInit");
 
-    assert_not_zero_address(&config.token_id, "Init token address");
-    assert_not_zero_address(&config.owner, "Init owner address");
+    asserts::not_zero_address(&config.token_address, "Init token address");
+    asserts::not_zero_address(&config.owner, "Init owner address");
 
     let ico = IcoContract {
-        token_id: config.token_id,
+        token_address: config.token_address,
         owner: config.owner,
-        ..IcoContract::default()
+        ..Default::default()
     };
 
     ICO_CONTRACT = Some(ico);
