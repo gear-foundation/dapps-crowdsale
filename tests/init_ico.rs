@@ -24,7 +24,7 @@ pub const TIME_INCREASE_STEP: u128 = 1000;
 fn init_fungible_token(sys: &System) {
     let ft = Program::from_file(
         &sys,
-        "./target/wasm32-unknown-unknown/release/fungible_token.wasm",
+        "./target/fungible_token.wasm",
     );
 
     let res = ft.send(
