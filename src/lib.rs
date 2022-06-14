@@ -38,7 +38,7 @@ impl IcoContract {
     ///
     async fn start_ico(&mut self, config: IcoAction) {
         check_input(&config);
-        asserts::owner_message(&self.owner, "start_ico(): Not owner start ICO");
+        asserts::owner_message(&self.owner, "start_ico(): Not owner starts ICO");
         assert!(!self.ico_state.ico_started, "start_ico(): Second ICO start");
 
         if let IcoAction::StartSale {
@@ -103,7 +103,7 @@ impl IcoContract {
             self.get_balance() != 0,
             "buy_tokens(): All tokens have been sold"
         );
-        self.in_process("buy_tokens()");
+        self.check_ico_executing("buy_tokens()");
 
         assert!(
             tokens_cnt <= self.get_balance(),
@@ -162,7 +162,7 @@ impl IcoContract {
         let time_now: u64 = exec::block_timestamp();
 
         asserts::owner_message(&self.owner, "end_sale()");
-        self.in_process("end_sale()");
+        self.check_ico_executing("end_sale()");
 
         if self.ico_state.start_time + self.ico_state.duration >= time_now
             && self.get_balance() != 0
@@ -208,7 +208,7 @@ impl IcoContract {
         self.tokens_goal - self.tokens_sold
     }
 
-    fn in_process(&self, message: &str) {
+    fn check_ico_executing(&self, message: &str) {
         assert!(
             self.ico_state.ico_started,
             "{}: ICO wasn't started",
