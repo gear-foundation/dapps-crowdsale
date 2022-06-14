@@ -1,13 +1,13 @@
 use core::time::Duration;
 
+use gstd::{Encode, String};
 use gtest::{Program, System};
-use gstd::{String, Encode};
 
 use ft_io::*;
 use ico_io::*;
 
 mod init_ico;
-use init_ico::*;
+pub use init_ico::*;
 
 #[test]
 fn start_ico() {
@@ -28,21 +28,28 @@ fn not_owner_start_ico() {
     let ico = sys.get_program(2);
 
     let duration = Duration::from_secs(20).as_millis() as u64;
-    let res = ico.send(USER_ID, IcoAction::StartSale { 
-        duration, 
-        start_price: START_PRICE, 
-        tokens_goal: TOKENS_CNT, 
-        price_increase_step: PRICE_INCREASE_STEP, 
-        time_increase_step: TIME_INCREASE_STEP, 
-    });
+    let res = ico.send(
+        USER_ID,
+        IcoAction::StartSale {
+            duration,
+            start_price: START_PRICE,
+            tokens_goal: TOKENS_CNT,
+            price_increase_step: PRICE_INCREASE_STEP,
+            time_increase_step: TIME_INCREASE_STEP,
+        },
+    );
 
-    assert!(res.contains(&(USER_ID, IcoEvent::SaleStarted { 
-        duration, 
-        start_price: START_PRICE, 
-        tokens_goal: TOKENS_CNT, 
-        price_increase_step: PRICE_INCREASE_STEP, 
-        time_increase_step: TIME_INCREASE_STEP, 
-    }.encode())));
+    assert!(res.contains(&(
+        USER_ID,
+        IcoEvent::SaleStarted {
+            duration,
+            start_price: START_PRICE,
+            tokens_goal: TOKENS_CNT,
+            price_increase_step: PRICE_INCREASE_STEP,
+            time_increase_step: TIME_INCREASE_STEP,
+        }
+        .encode()
+    )));
 }
 
 #[test]
@@ -92,9 +99,9 @@ fn not_minting_tokens() {
 
     let res = ico.send(
         OWNER_ID,
-        IcoInit { 
-            token_id: TOKEN_ID.into(), 
-            owner: OWNER_ID.into(), 
+        IcoInit {
+            token_id: TOKEN_ID.into(),
+            owner: OWNER_ID.into(),
         },
     );
     assert!(res.log().is_empty());

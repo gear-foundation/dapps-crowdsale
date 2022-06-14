@@ -1,4 +1,4 @@
-use gstd::{ActorId, msg};
+use gstd::{msg, ActorId};
 
 const ZERO_ID: ActorId = ActorId::new([0u8; 32]);
 

@@ -1,10 +1,10 @@
-use gtest::System;
 use gstd::Encode;
+use gtest::System;
 
 use ico_io::*;
 
 mod init_ico;
-use init_ico::*;
+pub use init_ico::*;
 
 #[test]
 fn end_sale_no_time_left() {

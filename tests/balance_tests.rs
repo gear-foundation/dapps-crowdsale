@@ -1,10 +1,10 @@
-use gtest::System;
 use gstd::Encode;
+use gtest::System;
 
 use ico_io::*;
 
 mod init_ico;
-use init_ico::*;
+pub use init_ico::*;
 
 #[test]
 fn balance_after_two_purchases() {
@@ -35,7 +35,7 @@ fn owner_balance() {
     init(&sys);
 
     let ico = sys.get_program(2);
-    
+
     start_sale(&ico, 1);
 
     let amount = 5;
@@ -44,12 +44,26 @@ fn owner_balance() {
     sys.spend_blocks(1001);
 
     let res = ico.send(OWNER_ID, IcoAction::BalanceOf(OWNER_ID.into()));
-    assert!(res.contains(&(OWNER_ID, (IcoEvent::BalanceOf { address: OWNER_ID.into() , balance: 0 }).encode())));
+    assert!(res.contains(&(
+        OWNER_ID,
+        (IcoEvent::BalanceOf {
+            address: OWNER_ID.into(),
+            balance: 0
+        })
+        .encode()
+    )));
 
     end_sale(&ico);
 
     let res = ico.send(OWNER_ID, IcoAction::BalanceOf(OWNER_ID.into()));
-    assert!(res.contains(&(OWNER_ID, (IcoEvent::BalanceOf { address: OWNER_ID.into() , balance: TOKENS_CNT - amount }).encode())));
+    assert!(res.contains(&(
+        OWNER_ID,
+        (IcoEvent::BalanceOf {
+            address: OWNER_ID.into(),
+            balance: TOKENS_CNT - amount
+        })
+        .encode()
+    )));
 }
 
 #[test]
@@ -63,5 +77,12 @@ fn not_owner_balance() {
     start_sale(&ico, 1);
 
     let res = ico.send(USER_ID, IcoAction::BalanceOf(USER_ID.into()));
-    assert!(res.contains(&(USER_ID, (IcoEvent::BalanceOf { address: USER_ID.into() , balance: 0 }).encode())));
+    assert!(res.contains(&(
+        USER_ID,
+        (IcoEvent::BalanceOf {
+            address: USER_ID.into(),
+            balance: 0
+        })
+        .encode()
+    )));
 }

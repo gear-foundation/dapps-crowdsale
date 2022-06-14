@@ -1,10 +1,10 @@
-use gtest::System;
 use gstd::Encode;
+use gtest::System;
 
 use ico_io::{IcoAction, IcoEvent};
 
 mod init_ico;
-use init_ico::*;
+pub use init_ico::*;
 
 #[test]
 fn common_buy_tokens() {
@@ -30,8 +30,20 @@ fn buy_tokens_with_change() {
 
     let amount: u128 = 5;
     let change = 600;
-    let res = ico.send_with_value(USER_ID, IcoAction::Buy(amount), amount * START_PRICE + change);
-    assert!(res.contains(&(USER_ID, (IcoEvent::Bought { buyer: USER_ID.into(), amount, change }).encode())));
+    let res = ico.send_with_value(
+        USER_ID,
+        IcoAction::Buy(amount),
+        amount * START_PRICE + change,
+    );
+    assert!(res.contains(&(
+        USER_ID,
+        (IcoEvent::Bought {
+            buyer: USER_ID.into(),
+            amount,
+            change
+        })
+        .encode()
+    )));
 }
 
 #[test]
@@ -54,7 +66,11 @@ fn buy_tokens_after_price_update() {
 
     sys.spend_blocks(1);
 
-    buy_tokens(&ico, amount, amount * (START_PRICE + PRICE_INCREASE_STEP * 2));
+    buy_tokens(
+        &ico,
+        amount,
+        amount * (START_PRICE + PRICE_INCREASE_STEP * 2),
+    );
 }
 
 #[test]

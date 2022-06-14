@@ -5,7 +5,6 @@ use codec::{Decode, Encode};
 use gstd::ActorId;
 use scale_info::TypeInfo;
 
-
 #[derive(Debug, Default, Encode, Decode, TypeInfo, Clone)]
 pub struct IcoState {
     pub ico_started: bool,
