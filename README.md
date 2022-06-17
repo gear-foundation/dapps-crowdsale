@@ -4,7 +4,7 @@
   </a>
 </p>
 
-# Gear Template App
+# Crowdsale (ICO)
 
 [![Build][build_badge]][build_href]
 [![License][lic_badge]][lic_href]
