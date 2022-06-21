@@ -17,18 +17,9 @@
 
 <!-- Description starts here -->
 
-Template application. Use this repository as a template when creating a new application repo.
-
-> https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template
+An example of initial coin offering (ICO).
 
 <!-- End of description -->
-
-## Initial checklist after creating a new repo
-
-- [x] Change app name in `Cargo.toml`
-- [x] Fix Gitpod/badge/releases links in `README.md` (replace `gear-academy/app` with `gear-academy/<my-new-app>`)
-- [ ] Add description in `README.md`
-- [ ] Remove this section
 
 ## Prebuilt Binaries
 
