@@ -60,6 +60,7 @@ pub fn init(sys: &System) {
 
     init_fungible_token(sys);
     init_ico(sys);
+    sys.mint_to(USER_ID, 100000);
 }
 
 #[cfg(test)]
@@ -111,13 +112,14 @@ pub fn buy_tokens(ico: &Program, amount: u128, price: u128) {
 
 #[cfg(test)]
 pub fn balance_of(ico: &Program, amount: u128) {
-    let res = ico.send(OWNER_ID, IcoAction::BalanceOf(USER_ID.into()));
-    assert!(res.contains(&(
-        OWNER_ID,
-        (IcoEvent::BalanceOf {
-            address: USER_ID.into(),
-            balance: amount
-        })
-        .encode()
-    )));
+    let res: StateIcoReply = ico
+        .meta_state(StateIco::BalanceOf(USER_ID.into()))
+        .expect("Error in meta_state");
+
+    if let StateIcoReply::BalanceOf { address, balance } = res {
+        assert!(
+            address == USER_ID.into() && balance == amount,
+            "Error in balance_of()"
+        );
+    }
 }
