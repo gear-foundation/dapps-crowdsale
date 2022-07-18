@@ -76,7 +76,7 @@ impl IcoContract {
                 },
                 0,
             )
-            .unwrap();
+            .expect("Error in reply");
         }
     }
 
@@ -130,7 +130,7 @@ impl IcoContract {
 
         if amount_sent > cost {
             change = amount_sent - cost;
-            msg::send(msg::source(), "", change).unwrap();
+            msg::send(msg::source(), "", change).expect("Sending error");
         }
 
         self.token_holders
@@ -148,7 +148,7 @@ impl IcoContract {
             },
             0,
         )
-        .unwrap();
+        .expect("Error in reply");
     }
 
     /// Ends ICO contract
@@ -195,7 +195,7 @@ impl IcoContract {
         }
 
         self.ico_state.ico_ended = true;
-        msg::reply(IcoEvent::SaleEnded, 0).unwrap();
+        msg::reply(IcoEvent::SaleEnded, 0).expect("Error in reply");
     }
 
     fn get_current_price(&self, time_now: u64) -> u128 {
