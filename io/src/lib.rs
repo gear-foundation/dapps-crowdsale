@@ -24,10 +24,6 @@ pub enum IcoAction {
     },
     Buy(u128),
     EndSale,
-<<<<<<< HEAD
-=======
-    BalanceOf(ActorId),
->>>>>>> master
 }
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]
@@ -45,13 +41,6 @@ pub enum IcoEvent {
         change: u128,
     },
     SaleEnded,
-<<<<<<< HEAD
-=======
-    BalanceOf {
-        address: ActorId,
-        balance: u128,
-    },
->>>>>>> master
 }
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]
@@ -61,7 +50,6 @@ pub struct IcoInit {
 }
 
 #[derive(Debug, Decode, Encode, TypeInfo)]
-<<<<<<< HEAD
 pub enum StateIco {
     CurrentPrice,
     TokensLeft,
@@ -73,17 +61,4 @@ pub enum StateIcoReply {
     CurrentPrice(u128),
     TokensLeft(u128),
     BalanceOf { address: ActorId, balance: u128 },
-=======
-pub enum State {
-    CurrentPrice,
-    TokensLeft,
-    Balance(ActorId),
-}
-
-#[derive(Debug, Decode, Encode, TypeInfo)]
-pub enum StateReply {
-    CurrentPrice(u128),
-    TokensLeft(u128),
-    Balance(u128),
->>>>>>> master
 }
