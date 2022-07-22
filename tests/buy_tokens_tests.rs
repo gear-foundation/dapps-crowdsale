@@ -55,16 +55,24 @@ fn buy_tokens_after_price_update() {
 
     start_sale(&ico, 2);
 
+<<<<<<< HEAD
     sys.spend_blocks((TIME_INCREASE_STEP).try_into().expect("Can't cast type"));
+=======
+    sys.spend_blocks((TIME_INCREASE_STEP).try_into().unwrap());
+>>>>>>> master
 
     let amount: u128 = 5;
     buy_tokens(&ico, amount, amount * (START_PRICE + PRICE_INCREASE_STEP));
 
+<<<<<<< HEAD
     sys.spend_blocks(
         (TIME_INCREASE_STEP - 1)
             .try_into()
             .expect("Can't cast type"),
     );
+=======
+    sys.spend_blocks((TIME_INCREASE_STEP - 1).try_into().unwrap());
+>>>>>>> master
 
     buy_tokens(&ico, amount, amount * (START_PRICE + PRICE_INCREASE_STEP));
 
@@ -117,11 +125,15 @@ fn wrong_value_after_price_update() {
 
     start_sale(&ico, 2);
 
+<<<<<<< HEAD
     sys.spend_blocks(
         (TIME_INCREASE_STEP + 1)
             .try_into()
             .expect("Can't cast type"),
     );
+=======
+    sys.spend_blocks((TIME_INCREASE_STEP + 1).try_into().unwrap());
+>>>>>>> master
 
     let amount: u128 = 5;
     buy_tokens(&ico, amount, amount * START_PRICE);

@@ -76,7 +76,11 @@ impl IcoContract {
                 },
                 0,
             )
+<<<<<<< HEAD
             .expect("Error in reply");
+=======
+            .unwrap();
+>>>>>>> master
         }
     }
 
@@ -130,7 +134,11 @@ impl IcoContract {
 
         if amount_sent > cost {
             change = amount_sent - cost;
+<<<<<<< HEAD
             msg::send(msg::source(), "", change).expect("Sending error");
+=======
+            msg::send(msg::source(), "", change).unwrap();
+>>>>>>> master
         }
 
         self.token_holders
@@ -148,7 +156,11 @@ impl IcoContract {
             },
             0,
         )
+<<<<<<< HEAD
         .expect("Error in reply");
+=======
+        .unwrap();
+>>>>>>> master
     }
 
     /// Ends ICO contract
@@ -195,7 +207,11 @@ impl IcoContract {
         }
 
         self.ico_state.ico_ended = true;
+<<<<<<< HEAD
         msg::reply(IcoEvent::SaleEnded, 0).expect("Error in reply");
+=======
+        msg::reply(IcoEvent::SaleEnded, 0).unwrap();
+>>>>>>> master
     }
 
     fn get_current_price(&self, time_now: u64) -> u128 {
@@ -227,6 +243,32 @@ async unsafe fn main() {
         IcoAction::StartSale { .. } => ico.start_ico(action).await,
         IcoAction::Buy(value) => ico.buy_tokens(value),
         IcoAction::EndSale => ico.end_sale().await,
+<<<<<<< HEAD
+=======
+        IcoAction::BalanceOf(address) => {
+            asserts::owner_message(&ico.owner, "BalanceOf()");
+
+            if let Some(val) = ico.token_holders.get(&address) {
+                msg::reply(
+                    IcoEvent::BalanceOf {
+                        address,
+                        balance: *val,
+                    },
+                    0,
+                )
+                .unwrap();
+            } else {
+                msg::reply(
+                    IcoEvent::BalanceOf {
+                        address,
+                        balance: 0,
+                    },
+                    0,
+                )
+                .unwrap();
+            }
+        }
+>>>>>>> master
     }
 }
 
@@ -279,14 +321,20 @@ gstd::metadata! {
         input: IcoAction,
         output: IcoEvent,
     state:
+<<<<<<< HEAD
         input: StateIco,
         output: StateIcoReply,
+=======
+        input: State,
+        output: StateReply,
+>>>>>>> master
 }
 
 #[no_mangle]
 pub unsafe extern "C" fn meta_state() -> *mut [i32; 2] {
     let time_now: u64 = exec::block_timestamp();
 
+<<<<<<< HEAD
     let state: StateIco = msg::load().expect("failed to decode State");
     let ico: &mut IcoContract = ICO_CONTRACT.get_or_insert(IcoContract::default());
 
@@ -308,6 +356,19 @@ pub unsafe extern "C" fn meta_state() -> *mut [i32; 2] {
                     balance: 0,
                 }
                 .encode()
+=======
+    let state: State = msg::load().expect("failed to decode State");
+    let ico: &mut IcoContract = ICO_CONTRACT.get_or_insert(IcoContract::default());
+
+    let encoded = match state {
+        State::CurrentPrice => StateReply::CurrentPrice(ico.get_current_price(time_now)).encode(),
+        State::TokensLeft => StateReply::TokensLeft(ico.get_balance()).encode(),
+        State::Balance(address) => {
+            if let Some(val) = ico.token_holders.get(&address) {
+                StateReply::Balance(*val).encode()
+            } else {
+                StateReply::Balance(0).encode()
+>>>>>>> master
             }
         }
     };
