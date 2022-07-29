@@ -60,11 +60,7 @@ fn buy_tokens_after_price_update() {
     let amount: u128 = 5;
     buy_tokens(&ico, amount, amount * (START_PRICE + PRICE_INCREASE_STEP));
 
-    sys.spend_blocks(
-        (TIME_INCREASE_STEP - 1)
-            .try_into()
-            .expect("Can't cast type"),
-    );
+    sys.spend_blocks((TIME_INCREASE_STEP - 1) as _);
 
     buy_tokens(&ico, amount, amount * (START_PRICE + PRICE_INCREASE_STEP));
 
