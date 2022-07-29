@@ -61,7 +61,7 @@ pub fn init(sys: &System) {
 
     init_fungible_token(sys);
     init_ico(sys);
-    sys.mint_to(USER_ID, 100000);
+    sys.mint_to(USER_ID, 100_000);
 }
 
 #[cfg(test)]
