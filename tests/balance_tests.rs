@@ -21,11 +21,7 @@ fn balance_after_two_purchases() {
 
     balance_of(&ico, amount);
 
-    sys.spend_blocks(
-        (TIME_INCREASE_STEP + 1)
-            .try_into()
-            .expect("Can't cast type"),
-    );
+    sys.spend_blocks((TIME_INCREASE_STEP + 1) as _);
 
     buy_tokens(&ico, amount, amount * (START_PRICE + PRICE_INCREASE_STEP));
 
