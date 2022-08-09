@@ -28,7 +28,7 @@ fn init_fungible_token(sys: &System) {
         InitConfig {
             name: String::from("MyToken"),
             symbol: String::from("MTK"),
-            decimals: 1,
+            decimals: 18,
         },
     );
 
