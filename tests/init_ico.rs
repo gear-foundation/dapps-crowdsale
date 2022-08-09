@@ -21,7 +21,7 @@ pub const PRICE_INCREASE_STEP: u128 = 100;
 pub const TIME_INCREASE_STEP: u128 = 1000;
 
 fn init_fungible_token(sys: &System) {
-    let ft = Program::from_file(sys, "./target/fungible_token.wasm");
+    let ft = Program::from_file(sys, "./target/fungible_token-0.1.0.wasm");
 
     let res = ft.send(
         OWNER_ID,
@@ -55,7 +55,6 @@ fn init_ico(sys: &System) {
     assert!(res.log().is_empty());
 }
 
-#[cfg(test)]
 pub fn init(sys: &System) {
     sys.init_logger();
 
@@ -64,7 +63,6 @@ pub fn init(sys: &System) {
     sys.mint_to(USER_ID, 100_000);
 }
 
-#[cfg(test)]
 pub fn start_sale(ico: &Program, ico_duration: u64) {
     let duration = Duration::from_secs(ico_duration).as_millis() as u64 * 1000;
     let res = ico.send(
@@ -91,14 +89,15 @@ pub fn start_sale(ico: &Program, ico_duration: u64) {
     )));
 }
 
-#[cfg(test)]
 pub fn end_sale(ico: &Program) {
     let res = ico.send(OWNER_ID, IcoAction::EndSale);
     assert!(res.contains(&(OWNER_ID, IcoEvent::SaleEnded.encode())));
 }
 
-#[cfg(test)]
-pub fn buy_tokens(ico: &Program, amount: u128, price: u128) {
+pub fn buy_tokens(_sys: &System, ico: &Program, amount: u128, price: u128) {
+    // TODO: Uncomment after updating to the latest `gtest`
+    // https://github.com/gear-dapps/crowdsale-ico/issues/8
+    // sys.mint_to(USER_ID, price);
     let res = ico.send_with_value(USER_ID, IcoAction::Buy(amount), price);
     assert!(res.contains(&(
         USER_ID,
@@ -111,7 +110,6 @@ pub fn buy_tokens(ico: &Program, amount: u128, price: u128) {
     )));
 }
 
-#[cfg(test)]
 pub fn balance_of(ico: &Program, amount: u128) {
     let res: StateIcoReply = ico
         .meta_state(StateIco::BalanceOf(USER_ID.into()))
