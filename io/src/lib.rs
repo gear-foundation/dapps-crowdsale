@@ -68,7 +68,10 @@ pub enum IcoAction {
     /// * `transaction_id`: Identifier of suspended transaction.
     ///
     /// When transaction already processed replies with [`IcoEvent::TransactionProcessed`].
-    Continue(u64),
+    Continue(
+        /// Identifier of suspended transaction.
+        u64,
+    ),
 }
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]
@@ -88,6 +91,7 @@ pub enum IcoEvent {
     },
     SaleEnded(u64),
     TransactionProcessed,
+    TransactionFailed,
 }
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]

@@ -67,6 +67,7 @@ impl IcoContract {
             .is_err()
             {
                 self.transactions.remove(&current_transaction_id);
+                msg::reply(IcoEvent::TransactionFailed, 0).expect("Unable to reply!");
                 return;
             }
 
@@ -186,9 +187,11 @@ impl IcoContract {
             )
         }
 
-        for (id, val) in &self.token_holders {
+        for (idx, (id, val)) in self.token_holders.iter().enumerate() {
+            let idx = idx as u64 + 1;
+
             if transfer_tokens(
-                current_transaction_id,
+                current_transaction_id + idx,
                 &self.token_address,
                 &exec::program_id(),
                 id,
@@ -197,6 +200,7 @@ impl IcoContract {
             .await
             .is_err()
             {
+                msg::reply(IcoEvent::TransactionFailed, 0).expect("Unable to reply!");
                 return;
             }
         }
@@ -213,6 +217,7 @@ impl IcoContract {
             .await
             .is_err()
             {
+                msg::reply(IcoEvent::TransactionFailed, 0).expect("Unable to reply!");
                 return;
             }
 
@@ -263,12 +268,8 @@ impl IcoContract {
     }
 
     fn check_ico_executing(&self, message: &str) {
-        assert!(
-            self.ico_state.ico_started,
-            "{}: ICO wasn't started",
-            message
-        );
-        assert!(!self.ico_state.ico_ended, "{}: ICO was ended", message);
+        assert!(self.ico_state.ico_started, "{message}: ICO wasn't started",);
+        assert!(!self.ico_state.ico_ended, "{message}: ICO was ended");
     }
 
     fn get_transaction_id(&mut self, transaction_id: Option<u64>) -> u64 {
@@ -276,7 +277,7 @@ impl IcoContract {
             Some(transaction_id) => transaction_id,
             None => {
                 let transaction_id = self.transaction_id;
-                self.transaction_id = self.transaction_id.saturating_add(1);
+                self.transaction_id = self.transaction_id.wrapping_add(1);
                 transaction_id
             }
         }
