@@ -63,18 +63,6 @@ pub enum IcoAction {
     ///
     /// On success replies with [`IcoEvent::SaleEnded`].
     EndSale,
-
-    /// Continues the transaction if it fails due to lack of gas
-    /// or due to an error in the token contract.
-    ///
-    /// # Requirements:
-    /// * `transaction_id` should exists in `transactions` table.
-    ///
-    /// When transaction already processed replies with [`IcoEvent::TransactionProcessed`].
-    Continue(
-        /// Identifier of suspended transaction.
-        u64,
-    ),
 }
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]
@@ -93,7 +81,6 @@ pub enum IcoEvent {
         change: u128,
     },
     SaleEnded(u64),
-    TransactionProcessed,
     TransactionFailed(u64),
 }
 
