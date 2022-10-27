@@ -7,7 +7,7 @@ authors = ["Gear Technologies"]
 
 [dependencies]
 gstd = { git = "https://github.com/gear-tech/gear.git" }
-ft-io = { git = "https://github.com/gear-dapps/fungible-token.git", tag = "0.1.0" }
+ft-io = { git = "https://github.com/gear-dapps/fungible-token.git", tag = "0.1.2" }
 ico-io = { path = "io" }
 
 [dev-dependencies]
