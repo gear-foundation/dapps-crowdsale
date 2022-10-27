@@ -67,7 +67,8 @@ impl IcoContract {
             .is_err()
             {
                 self.transactions.remove(&current_transaction_id);
-                msg::reply(IcoEvent::TransactionFailed, 0).expect("Unable to reply!");
+                msg::reply(IcoEvent::TransactionFailed(current_transaction_id), 0)
+                    .expect("Unable to reply!");
                 return;
             }
 
@@ -200,7 +201,8 @@ impl IcoContract {
             .await
             .is_err()
             {
-                msg::reply(IcoEvent::TransactionFailed, 0).expect("Unable to reply!");
+                msg::reply(IcoEvent::TransactionFailed(current_transaction_id), 0)
+                    .expect("Unable to reply!");
                 return;
             }
         }
@@ -217,7 +219,8 @@ impl IcoContract {
             .await
             .is_err()
             {
-                msg::reply(IcoEvent::TransactionFailed, 0).expect("Unable to reply!");
+                msg::reply(IcoEvent::TransactionFailed(current_transaction_id), 0)
+                    .expect("Unable to reply!");
                 return;
             }
 

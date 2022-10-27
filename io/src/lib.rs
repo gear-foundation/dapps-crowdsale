@@ -91,7 +91,7 @@ pub enum IcoEvent {
     },
     SaleEnded(u64),
     TransactionProcessed,
-    TransactionFailed,
+    TransactionFailed(u64),
 }
 
 #[derive(Debug, Decode, Encode, Clone, TypeInfo)]
