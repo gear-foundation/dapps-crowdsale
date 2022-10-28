@@ -78,8 +78,6 @@ fn zero_duration_start_ico() {
 fn not_minting_tokens() {
     let sys = System::new();
 
-    // let ft = Program::ftoken(OWNER_ID, TOKEN_ADDRESS, &sys);
-
     let ico = Program::current(&sys);
 
     let res = ico.send(

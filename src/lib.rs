@@ -37,7 +37,9 @@ impl IcoContract {
     /// * `config`: Consists of `duration`, `start_price`, `tokens_goal`, `price_increase_step` and time_increase_step
     ///
     async fn start_ico(&mut self, config: IcoAction) {
-        let current_transaction_id = *self.transactions.entry(msg::source()).or_insert_with(|| {
+        let source = msg::source();
+
+        let current_transaction_id = *self.transactions.entry(source).or_insert_with(|| {
             let id = self.transaction_id;
 
             self.transaction_id = self.transaction_id.wrapping_add(1);
@@ -72,7 +74,7 @@ impl IcoContract {
             .await
             .is_err()
             {
-                self.transactions.remove(&msg::source());
+                self.transactions.remove(&source);
                 msg::reply(IcoEvent::TransactionFailed(current_transaction_id), 0)
                     .expect("Unable to reply!");
                 return;
@@ -82,7 +84,7 @@ impl IcoContract {
             self.ico_state.duration = duration;
             self.ico_state.start_time = exec::block_timestamp();
 
-            self.transactions.remove(&msg::source());
+            self.transactions.remove(&source);
 
             msg::reply(
                 IcoEvent::SaleStarted {
@@ -178,7 +180,9 @@ impl IcoContract {
     /// * All tokens must be sold or the ICO duration must end
     ///
     async fn end_sale(&mut self) {
-        let current_transaction_id = *self.transactions.entry(msg::source()).or_insert_with(|| {
+        let source = msg::source();
+
+        let current_transaction_id = *self.transactions.entry(source).or_insert_with(|| {
             let id = self.transaction_id;
 
             self.transaction_id = self.transaction_id.wrapping_add(1);
@@ -251,7 +255,7 @@ impl IcoContract {
 
         self.ico_state.ico_ended = true;
 
-        self.transactions.remove(&msg::source());
+        self.transactions.remove(&source);
 
         msg::reply(IcoEvent::SaleEnded(current_transaction_id), 0).expect("Error in reply");
     }

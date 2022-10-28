@@ -15,7 +15,7 @@ pub async fn transfer_tokens(
     to: &ActorId,
     amount_tokens: u128,
 ) -> Result<(), ()> {
-    let reply = msg::send_for_reply_as::<_, FTokenEvent>(
+    let reply = msg::send_for_reply_as::<ft_main_io::FTokenAction, FTokenEvent>(
         *token_address,
         FTokenAction::Message {
             transaction_id,
