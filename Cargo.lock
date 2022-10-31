@@ -160,7 +160,7 @@ checksum = "6245d59a3e82a7fc217c5828a6692dbc6dfb63a0c8c90495621f7b9d79704a0e"
 name = "crowdsale-ico"
 version = "0.1.0"
 dependencies = [
- "ft-logic-io",
+ "ft-logic-io 0.1.0",
  "ft-main-io",
  "gear-wasm-builder",
  "gstd",
@@ -255,11 +255,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "ft-main-io"
-version = "0.1.0"
-source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.0#da5b4acfa8a14005f753ce439a681b0636359c72"
+name = "ft-logic-io"
+version = "0.1.1"
+source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.1#4cf060d2ce7d86fb1b0909adce36c5646cfffe63"
 dependencies = [
- "ft-logic-io",
+ "gstd",
+ "parity-scale-codec",
+ "primitive-types 0.12.0",
+ "scale-info",
+]
+
+[[package]]
+name = "ft-main-io"
+version = "0.1.1"
+source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.1#4cf060d2ce7d86fb1b0909adce36c5646cfffe63"
+dependencies = [
+ "ft-logic-io 0.1.1",
  "gstd",
  "parity-scale-codec",
  "primitive-types 0.12.0",
@@ -336,7 +347,7 @@ dependencies = [
 [[package]]
 name = "galloc"
 version = "0.1.0"
-source = "git+https://github.com/gear-tech/gear.git#4dd6c63ef788fb7343cd6a20445a8268fb9614e0"
+source = "git+https://github.com/gear-tech/gear.git#6dc8d24edd94bf992f45723d431fe9075d6c005b"
 dependencies = [
  "dlmalloc",
 ]
@@ -344,7 +355,7 @@ dependencies = [
 [[package]]
 name = "gcore"
 version = "0.1.0"
-source = "git+https://github.com/gear-tech/gear.git#4dd6c63ef788fb7343cd6a20445a8268fb9614e0"
+source = "git+https://github.com/gear-tech/gear.git#6dc8d24edd94bf992f45723d431fe9075d6c005b"
 dependencies = [
  "gear-core-errors",
  "parity-scale-codec",
@@ -399,7 +410,7 @@ dependencies = [
 [[package]]
 name = "gear-core-errors"
 version = "0.1.0"
-source = "git+https://github.com/gear-tech/gear.git#4dd6c63ef788fb7343cd6a20445a8268fb9614e0"
+source = "git+https://github.com/gear-tech/gear.git#6dc8d24edd94bf992f45723d431fe9075d6c005b"
 dependencies = [
  "derive_more",
  "parity-scale-codec",
@@ -449,7 +460,7 @@ dependencies = [
 [[package]]
 name = "gstd"
 version = "0.1.0"
-source = "git+https://github.com/gear-tech/gear.git#4dd6c63ef788fb7343cd6a20445a8268fb9614e0"
+source = "git+https://github.com/gear-tech/gear.git#6dc8d24edd94bf992f45723d431fe9075d6c005b"
 dependencies = [
  "bs58",
  "futures",
@@ -467,7 +478,7 @@ dependencies = [
 [[package]]
 name = "gstd-codegen"
 version = "0.1.0"
-source = "git+https://github.com/gear-tech/gear.git#4dd6c63ef788fb7343cd6a20445a8268fb9614e0"
+source = "git+https://github.com/gear-tech/gear.git#6dc8d24edd94bf992f45723d431fe9075d6c005b"
 dependencies = [
  "proc-macro2",
  "quote",
