@@ -10,7 +10,7 @@ gstd = { git = "https://github.com/gear-tech/gear.git" }
 codec = { package = "parity-scale-codec", version = "3", default-features = false }
 ico-io = { path = "io" }
 ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "0.1.0" }
-ft-logic-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "0.1.0" }
+ft-logic-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "0.1.2" }
 
 [dev-dependencies]
 gtest = { git = "https://github.com/gear-tech/gear.git" }
