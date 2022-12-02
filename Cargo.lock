@@ -237,7 +237,7 @@ dependencies = [
 [[package]]
 name = "ft-logic-io"
 version = "0.1.2"
-source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.2#eaec0c84175cf3532141837ff591e37b697b8793"
+source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.2#3cf82a879e1072448a63570b489e2cd59a85ef05"
 dependencies = [
  "gstd",
  "parity-scale-codec",
@@ -248,7 +248,7 @@ dependencies = [
 [[package]]
 name = "ft-main-io"
 version = "0.1.2"
-source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.2#eaec0c84175cf3532141837ff591e37b697b8793"
+source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.2#3cf82a879e1072448a63570b489e2cd59a85ef05"
 dependencies = [
  "ft-logic-io",
  "gstd",
