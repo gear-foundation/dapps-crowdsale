@@ -146,9 +146,7 @@ impl IcoContract {
 
         assert!(
             amount_sent >= cost,
-            "buy_tokens(): Wrong amount sent, expect {} get {}",
-            cost,
-            amount_sent
+            "buy_tokens(): Wrong amount sent, expect {cost} get {amount_sent}"
         );
 
         if amount_sent > cost {
