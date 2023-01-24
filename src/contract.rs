@@ -382,8 +382,8 @@ extern "C" fn state() {
 
 #[no_mangle]
 extern "C" fn metahash() {
-    reply(include!("../.metahash"))
-        .expect("Failed to encode or reply with `[u8; 32]` from `metahash()`");
+    let metahash: [u8; 32] = include!("../.metahash");
+    reply(metahash).expect("Failed to encode or reply with `[u8; 32]` from `metahash()`");
 }
 
 impl From<&mut IcoContract> for State {
@@ -404,16 +404,4 @@ impl From<&mut IcoContract> for State {
             transactions,
         }
     }
-}
-
-gstd::metadata! {
-    title: "crowdsale_ico",
-    init:
-        input: IcoInit,
-    handle:
-        input: IcoAction,
-        output: IcoEvent,
-    state:
-        input: StateIco,
-        output: StateIcoReply,
 }
