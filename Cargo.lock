@@ -740,8 +740,8 @@ version = "0.1.1"
 dependencies = [
  "crowdsale-io",
  "crowdsale-state",
- "ft-logic-io",
- "ft-main-io",
+ "ft-logic-io 0.1.2",
+ "ft-main-io 0.1.3",
  "gclient",
  "gear-wasm-builder 0.1.2 (git+https://github.com/gear-tech/gear.git?branch=stable)",
  "gmeta 0.1.0 (git+https://github.com/gear-tech/gear.git?branch=stable)",
@@ -757,8 +757,8 @@ dependencies = [
 name = "crowdsale-io"
 version = "0.1.1"
 dependencies = [
- "ft-logic-io",
- "ft-main-io",
+ "ft-logic-io 0.1.2",
+ "ft-main-io 0.1.2",
  "gmeta 0.1.0 (git+https://github.com/gear-tech/gear.git?branch=stable)",
  "gstd 0.1.0 (git+https://github.com/gear-tech/gear.git?branch=stable)",
  "hashbrown 0.13.2",
@@ -1548,11 +1548,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "ft-logic-io"
+version = "0.1.3"
+source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.3#5e3cc28db61fe329ad162998db5541bfd74763d2"
+dependencies = [
+ "gstd 0.1.0 (git+https://github.com/gear-tech/gear.git?branch=stable)",
+ "parity-scale-codec",
+ "primitive-types",
+ "scale-info",
+]
+
+[[package]]
 name = "ft-main-io"
 version = "0.1.2"
 source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.2#3cf82a879e1072448a63570b489e2cd59a85ef05"
 dependencies = [
- "ft-logic-io",
+ "ft-logic-io 0.1.2",
+ "gstd 0.1.0 (git+https://github.com/gear-tech/gear.git?branch=stable)",
+ "parity-scale-codec",
+ "primitive-types",
+ "scale-info",
+]
+
+[[package]]
+name = "ft-main-io"
+version = "0.1.3"
+source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?tag=0.1.3#5e3cc28db61fe329ad162998db5541bfd74763d2"
+dependencies = [
+ "ft-logic-io 0.1.3",
  "gstd 0.1.0 (git+https://github.com/gear-tech/gear.git?branch=stable)",
  "parity-scale-codec",
  "primitive-types",
@@ -6434,7 +6457,7 @@ checksum = "97fee6b57c6a41524a810daee9286c02d7752c4253064d0b05472833a438f675"
 dependencies = [
  "cfg-if",
  "digest 0.10.6",
- "rand 0.8.5",
+ "rand 0.7.3",
  "static_assertions",
 ]
 
