@@ -8,7 +8,7 @@ authors = ["Gear Technologies"]
 [dependencies]
 gstd = { git = "https://github.com/gear-tech/gear.git", branch = "testnet" }
 codec = { package = "parity-scale-codec", version = "3", default-features = false }
-scale-info = { version = "2.3.0", default-features = false }
+scale-info = { version = "2.5.0", default-features = false }
 ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "0.1.4" }
 ft-logic-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "0.1.4" }
 hashbrown = "0.13.1"
