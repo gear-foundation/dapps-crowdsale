@@ -123,10 +123,12 @@ impl IcoContract {
         );
         self.check_ico_executing("buy_tokens()");
 
+        gstd::debug!("BEFORE");
         assert!(
             tokens_cnt <= self.get_balance(),
             "buy_tokens(): Not enough tokens to sell"
         );
+        gstd::debug!("AFTER");
 
         let current_price = self.get_current_price(time_now);
         let cost = tokens_cnt.checked_mul(current_price).unwrap_or_else(|| {
@@ -262,7 +264,10 @@ impl IcoContract {
     }
 
     fn get_balance(&self) -> u128 {
-        self.tokens_goal - self.tokens_sold
+        gstd::debug!("BEFORE 2");
+        let d = self.tokens_goal - self.tokens_sold;
+        gstd::debug!("AFTER 2");
+        d
     }
 
     fn check_ico_executing(&self, message: &str) {
@@ -344,12 +349,6 @@ extern "C" fn state() {
     reply(common_state()).expect(
         "Failed to encode or reply with `<ContractMetadata as Metadata>::State` from `state()`",
     );
-}
-
-#[no_mangle]
-extern "C" fn metahash() {
-    let metahash: [u8; 32] = include!("../.metahash");
-    reply(metahash).expect("Failed to encode or reply with `[u8; 32]` from `metahash()`");
 }
 
 impl From<&mut IcoContract> for State {
