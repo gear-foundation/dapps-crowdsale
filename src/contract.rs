@@ -123,12 +123,10 @@ impl IcoContract {
         );
         self.check_ico_executing("buy_tokens()");
 
-        gstd::debug!("BEFORE");
         assert!(
             tokens_cnt <= self.get_balance(),
             "buy_tokens(): Not enough tokens to sell"
         );
-        gstd::debug!("AFTER");
 
         let current_price = self.get_current_price(time_now);
         let cost = tokens_cnt.checked_mul(current_price).unwrap_or_else(|| {
@@ -264,9 +262,7 @@ impl IcoContract {
     }
 
     fn get_balance(&self) -> u128 {
-        gstd::debug!("BEFORE 2");
         let d = self.tokens_goal - self.tokens_sold;
-        gstd::debug!("AFTER 2");
         d
     }
 
