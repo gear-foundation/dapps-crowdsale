@@ -262,8 +262,7 @@ impl IcoContract {
     }
 
     fn get_balance(&self) -> u128 {
-        let d = self.tokens_goal - self.tokens_sold;
-        d
+        self.tokens_goal - self.tokens_sold
     }
 
     fn check_ico_executing(&self, message: &str) {
